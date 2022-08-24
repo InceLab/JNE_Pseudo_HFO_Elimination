@@ -15,21 +15,17 @@ function [y,coeff,loc,residual,Error,Error_side,Error_center]=OMP_Visualize(D,X,
 % if nargin==6
 %     pre = 0;
 % end
-[n,P]=size(X);
-[n,K]=size(D);
+[~,P]=size(X);
+[~,K]=size(D);
 Error_Diff = [];
 for k=1:1:P
     a=[];
     x=X(:,k);
-%     if pre==0
-        residual(:,1)=x;
-%     else
-%         residual(:,1)=pre;
-%     end
+    residual(:,1)=x;
     indx = [];
     for j=1:1:L % iteration
         proj=D'*residual(:,j);
-        [maxVal,pos]=max(abs(proj));
+        [~,pos]=max(abs(proj));
         pos=pos(1);
         indx=[indx pos];
         a=pinv(D(:,indx(1:j)))*x;
@@ -55,7 +51,6 @@ for k=1:1:P
                 break;
             end
         end 
-        %plot_OMP(X,y,D,Error,residual,coeff,loc,j,anim)
     end
 end
 return;

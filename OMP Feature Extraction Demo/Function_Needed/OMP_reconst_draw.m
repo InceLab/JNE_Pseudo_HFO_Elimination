@@ -23,11 +23,11 @@ Dictionary = [Dict.DL Dict.DR Dict.DF];%Dictionary atoms
 
 % OMP Process
 [OMP.reconstructed,OMP.coeff,OMP.loc,OMP.Residual,OMP.Error,~,~]...
-    = OMP_Visualize_old(Dictionary,dat,30,stop.Res,stop.DRes,stop.minIteration);
+    = OMP_Visualize(Dictionary,dat,30,stop.Res,stop.DRes,stop.minIteration);
 
 % Compute the V-Factor
 for k=1:stop.iter
-    [~,~,Q(k)] = QFactor(OMP.Residual(:,k));
+    [~,~,V(k)] = VFactor(OMP.Residual(:,k));
 end
 
 % Visualization
@@ -97,12 +97,12 @@ for k=1:stop.iter
     ylabel('Amplitude (uV)');
     
     subplot(11,4,[11 12 15 16]);%plot the V-factor
-    stem(1:k,Q(1:k),'k');
+    stem(1:k,V(1:k),'k');
     xlim([0.5 stop.iter+0.5]);
     ylim([0 20]);
     xlabel('Iteration');
     ylabel('V-Factor');
-    txt = sprintf('V-Factor: %.2f',Q(k));
+    txt = sprintf('V-Factor: %.2f',V(k));
     grid on;
     title(txt);
     
